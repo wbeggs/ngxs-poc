@@ -1,0 +1,40 @@
+<h1>Customers can be on this dashboard</h1>
+<input [(ngModel)]="custId" name="custId" type="text"/>
+<div class="some-buttons">
+  <button (click)="loadCustomer()">Load Customer</button>
+  <button (click)="loadDashboard()">Load Dashboard</button>
+  <div *ngIf="basicInfo != null">
+    <button (click)="marryCustomer()">Marry Customer</button>
+    <button (click)="divorceCustomer()">Divorce Customer</button>
+    <button (click)="makeCustomerSad()">Make Customer Unhappy</button>
+    <button (click)="disgruntleCustomer()">Disgruntle Customer</button>
+  </div>
+</div>
+
+<div *ngIf="basicInfo != null">
+  <div>
+    <h4>Basic Info:</h4>
+    <p>Name: {{basicInfo.firstName}} {{basicInfo.lastName}}</p>
+    <p>Full Name: {{fullName$ | async}}</p>
+    <p>Age: {{age$ | async}}</p>
+  </div>
+  <div>
+    <h4>Personal Information:</h4>
+    <p>Marital Status: {{MaritalStatus[(maritalStatus$ | async)]}}</p>
+  </div>
+  <div>
+    <p *ngIf="(emotionalState$ | async) != null">Emotional Information: {{Feeling[(emotionalState$ | async).feeling] }} </p>
+  </div>
+  <div>
+    <h4>Tracking ID from pretend cookie: {{ trackingId$ | async }}</h4>
+  </div>
+</div>
+
+<div *ngIf="orders?.length > 0">
+  <h4>Customer Orders:</h4>
+  <p>Number of orders: {{ totalOrders$ | async }}</p>
+  <div *ngFor="let order of orders">
+    <p>Description: {{order.description}}</p>
+    <p>Status: {{OrderStatus[order.status]}}</p>
+  </div>
+</div>
